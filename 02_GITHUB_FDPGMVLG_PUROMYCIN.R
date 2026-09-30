@@ -684,7 +684,7 @@ tic("FDPGMVLG Runtime")
 tune_fuzzy_pipeline <- function(
     kappaToBeat,
     stop_on_success = TRUE,
-    max_trials = 100000,
+    max_trials = 1000,
     verbose = TRUE,
     seed = NULL
 ) {
@@ -890,7 +890,7 @@ tune_fuzzy_pipeline <- function(
 
 best_result <- tune_fuzzy_pipeline(
   kappaToBeat = 0.657,
-  max_trials = 100000,
+  max_trials = 1000,
   verbose = TRUE,
   seed = 124
 )
