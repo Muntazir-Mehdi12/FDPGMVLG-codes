@@ -1,5 +1,5 @@
 The codes are distributed in two categories:
 
-DPGMVLG method / FDPGMVLG method.
+1. DPGMVLG method / FDPGMVLG method.
 
-EGK method / GG method / Genie method.
+2. EGK method / GG method / Genie method.
