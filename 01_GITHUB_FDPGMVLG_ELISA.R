@@ -259,17 +259,17 @@ for (dp_Gmvlg in names(dp_Gmvlg_metricsElisa_1)) {
 # ----------------------------------------------------------------
 gfn <- function(mu, var) list(mu = mu, var = var) 
 
-# ----------------------------------------------
-# --- Addition of two independent GFNs ---------
-# ---------------- (A + B) ---------------------
-# ----------------------------------------------
+# ----------------------------------
+# --- Addition of two GFNs ---------
+# ---------- (A + B) ---------------
+# ----------------------------------
 gfn_add <- function(A, B) {
   gfn(mu = A$mu + B$mu, var = A$var + B$var) # -- Addition of two independent GFNs.
 }
 
-# --------------------------------------------------
-# --- Sum of multiple GFNs assuming independence ---
-# --------------------------------------------------
+# -----------------------------
+# --- Sum of multiple GFNs  ---
+# -----------------------------
 gfn_sum_list <- function(gfn_list) {
   mu <- sum(sapply(gfn_list, function(x) x$mu))
   var <- sum(sapply(gfn_list, function(x) x$var))
@@ -293,29 +293,29 @@ gfn_scalar_mul <- function(a, A) {
   gfn(mu = a * A$mu, var = (a^2) * A$var)
 }
 
-# ----------------------------------------------
-# -------- Product of two independent GFNs -----
-# ---------------- (A x B) ---------------------
-# ----------------------------------------------
+# ----------------------------------
+# -------- Product of two GFNs -----
+# ---------------- (A x B) ---------
+# ----------------------------------
 gfn_mul <- function(A, B) {
   mu <- A$mu * B$mu
   var <- (A$mu^2) * B$var + (B$mu^2) * A$var + A$var * B$var
   gfn(mu, var)
 }
 
-# --------------------------------------------------------------------------
-# --- Division using a first-order Taylor (approx via delta method) --------
-# ------------------------  (A / B)  ---------------------------------------
-# --------------------------------------------------------------------------
+# ---------------------------------
+# --- Division of two GFNs --------
+# -------------  (A / B)  ---------
+# ---------------------------------
 gfn_div <- function(A, B) {
   mu <- A$mu / B$mu
   var <- (A$var / (B$mu^2)) + ((A$var^2 + A$mu^2) * B$var / (B$mu^4))
   gfn(mu, var)
 }
 
-# --------------------------------------------------------------
-# --- Log of a positive GFN: use delta method approximations ---
-# --------------------------------------------------------------
+# -----------------------------
+# --- Log of a positive GFN ---
+# -----------------------------
 gfn_log <- function(A) {
   mu <- log(A$mu) 
   var <- A$var / (A$mu^2)
@@ -331,9 +331,9 @@ gfn_exp <- function(A) {
   gfn(mu_out, var_out)
 }
 
-# ----------------------------------------------------------
-# --- Reciprocal of a positive GFN: 1 / A (delta method) ---
-# ----------------------------------------------------------
+# ------------------------------------
+# --- Reciprocal of a positive GFN ---
+# ------------------------------------
 gfn_reciprocal <- function(A) {
   mu <- 1 / A$mu
   var <- A$var / (A$mu^4)
@@ -341,11 +341,11 @@ gfn_reciprocal <- function(A) {
 }
 
 # ----------------------------------
-# --------- Product of GFNs --------
+# --- Product of vector of GFNs  ---
 # ----------------------------------
 gfn_prod_list <- function(gfn_list) {
   logs <- lapply(gfn_list, gfn_log)
-  s <- gfn_sum_list(logs)     
+  s <- gfn_sum_list(logs)   
   gfn_exp(s)
 }
 
